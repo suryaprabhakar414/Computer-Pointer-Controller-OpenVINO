@@ -60,14 +60,16 @@ class Head_Pose_Estimation:
         image_HPE = self.preprocess_input(image)
         self.inference(image_HPE)
         result = self.exec_network.infer(inputs={self.input_blob:image_HPE.astype(np.float32)})
-        #result = self.exec_network.requests[0].outputs[self.output_blob][0]
-        #coordinates = self.preprocess_output(result,image,image.shape[0],image.shape[1])
-    
-        return result
+        output = self.preprocess_output(result)
+        return output
 
 
-    def preprocess_output(self, result, image,height,width):        
-        return 
+    def preprocess_output(self, result):  
+        output = {}
+        output['yaw'] = result['angle_y_fc'][0][0] 
+        output['pitch'] = result['angle_p_fc'][0][0]   
+        output['roll'] = result['angle_r_fc'][0][0]
+        return output
         
 
         
