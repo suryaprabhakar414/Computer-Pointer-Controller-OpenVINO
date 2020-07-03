@@ -12,36 +12,28 @@ import math
 import time
 
 def build_argparser():
+
+    i_desc = "Specify Path to video file or enter cam for webcam"
+    f_desc = "Specify Path to (.xml and .bin) of Face Detection model."
+    fl_desc = "Specify Path to folder(.xml and .bin) of Facial Landmark Detection model."
+    hp_desc = "Specify Path to folder(.xml and .bin) of Head Pose Estimation model."
+    g_desc = "Specify Path to folder(.xml and .bin) of Gaze Estimation model."
+    flags_desc = "Specify the flags from fd, fld, hp, ge like --flags fd hp fld (Seperate each flag by space) for see the visualization of different model outputs of each frame, fd for Face Detection, fld for Facial Landmark Detection hp for Head Pose Estimation, ge for Gaze Estimation." 
+    prob_desc = "Probability threshold for model to detect the face accurately from the video frame."
+    d_desc = "Specify the target device to infer on: CPU, GPU, FPGA or MYRIAD is acceptable. Sample will look for a suitable plugin for device specified (CPU by default)"
+    l_desc = "MKLDNN (CPU)-targeted custom layers. Absolute path to a shared library with the kernels impl."
+    
     parser = argparse.ArgumentParser("Computer Pointer Controller")
-    
 
-    parser.add_argument("-i", required=True, type=str,
-                        help="Specify Path to video file or enter cam for webcam")
-    #python3 main.py -i  "/home/vegeta/Documents/Python/Project/bin/demo.mp4"  -f "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_downloader/intel/face-detection-adas-binary-0001/FP32-INT1/" -fl "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_downloader/intel/landmarks-regression-retail-0009/FP32/" -hp "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_downloader/intel/head-pose-estimation-adas-0001/FP32/" -g "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_downloader/intel/gaze-estimation-adas-0002/FP32/"
-    parser.add_argument("-f", required=True, type=str,
-                        help="Specify Path to .xml file of Face Detection model.")
-    parser.add_argument("-fl", required=True, type=str,
-                        help="Specify Path to .xml file of Facial Landmark Detection model.")
-    parser.add_argument("-hp", required=True, type=str,
-                        help="Specify Path to .xml file of Head Pose Estimation model.")
-    parser.add_argument("-g", required=True, type=str,
-                        help="Specify Path to .xml file of Gaze Estimation model.")
-    parser.add_argument("-flags", required=False, type=str,
-                        default="",
-                        help="Specify the flags from fd, fld, hp, ge like --flags fd hp fld (Seperate each flag by space)"
-                             "for see the visualization of different model outputs of each frame," 
-                             "fd for Face Detection, fld for Facial Landmark Detection"
-                             "hp for Head Pose Estimation, ge for Gaze Estimation." )
-
-    parser.add_argument("-prob", required=False, type=float,default=0.6,
-                        help="Probability threshold for model to detect the face accurately from the video frame.")
-
-    parser.add_argument("-d", type=str, default="CPU",
-                        help="Specify the target device to infer on: "
-                             "CPU, GPU, FPGA or MYRIAD is acceptable. Sample "
-                             "will look for a suitable plugin for device "
-                             "specified (CPU by default)")        
-    
+    parser.add_argument("-i", required=True, type=str, help=i_desc)
+    parser.add_argument("-f", required=True, type=str, help=f_desc)
+    parser.add_argument("-fl", required=True, type=str,help=fl_desc)
+    parser.add_argument("-hp", required=True, type=str,help=hp_desc)
+    parser.add_argument("-g", required=True, type=str,help=g_desc)
+    parser.add_argument("-flags", required=False, type=str,default="",help=flags_desc)
+    parser.add_argument("-prob", required=False, type=float,default=0.6,help=prob_desc)
+    parser.add_argument("-d", type=str, default="CPU", help=d_desc)
+    parser.add_argument("-l", required=False, type=str,default=None,help=l_desc)
     args = parser.parse_args()
     return args
 
@@ -54,16 +46,16 @@ def main():
     
     ##### LOADING MODELS #####
     start_time = time.time()
-    FD = Face_Detection(device = args.d,threshold = args.prob)
+    FD = Face_Detection(device = args.d,threshold = args.prob, extensions=args.l)
     FD.load_model(model_path = args.f)
 
-    FLD = Facial_Landmarks_Detection(device = args.d)
+    FLD = Facial_Landmarks_Detection(device = args.d, extensions=args.l)
     FLD.load_model(model_path = args.fl)
     
-    HPE = Head_Pose_Estimation(device = args.d)
+    HPE = Head_Pose_Estimation(device = args.d, extensions=args.l)
     HPE.load_model(model_path = args.hp)
 
-    GE = Gaze_Estimation(device = args.d)
+    GE = Gaze_Estimation(device = args.d, extensions=args.l)
     GE.load_model(model_path = args.g)
 
     total_load_time = (time.time()-start_time)*1000
