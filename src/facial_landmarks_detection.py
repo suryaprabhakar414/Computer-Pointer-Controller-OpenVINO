@@ -7,9 +7,7 @@ import numpy as np
 import cv2
 
 class Facial_Landmarks_Detection:
-    '''
-    Class for the Face Detection Model.
-    '''
+    
     def __init__(self, device, extensions=None):
         '''
         TODO: Use this to set your instance variables.
