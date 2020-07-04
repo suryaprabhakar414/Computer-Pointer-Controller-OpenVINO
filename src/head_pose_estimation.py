@@ -7,10 +7,8 @@ import numpy as np
 import cv2
 
 class Head_Pose_Estimation:
-    '''
-    Class for the Face Detection Model.
-    '''
-    def __init__(self, device='CPU', extensions=None):
+    
+    def __init__(self, device, extensions=None):
         '''
         TODO: Use this to set your instance variables.
         '''
@@ -20,20 +18,23 @@ class Head_Pose_Estimation:
         self.output_blob = None
         self.exec_network = None
         self.infer_request = None
+        self.device = device
+        self.extensions = extensions
 
-    def load_model(self):
-        
-        self.network = IENetwork(model='/opt/intel/openvino_2020.2.120/deployment_tools/open_model_zoo/tools/downloader/intel/head-pose-estimation-adas-0001/FP32/head-pose-estimation-adas-0001.xml', weights='/opt/intel/openvino_2020.2.120/deployment_tools/open_model_zoo/tools/downloader/intel/head-pose-estimation-adas-0001/FP32/head-pose-estimation-adas-0001.bin')
+    def load_model(self,model_path):
+        model = model_path+"head-pose-estimation-adas-0001.xml"
+        weights = model_path+"head-pose-estimation-adas-0001.bin"
+        self.network = IENetwork(model=model,weights = weights)
         self.plugin = IECore()
-        self.exec_network = self.plugin.load_network(self.network,"CPU")
+        if self.extensions and "CPU" in self.device:
+            self.plugin.add_extension(self.extensions, self.device)
+        self.check_model()
+        self.exec_network = self.plugin.load_network(self.network,self.device)
         self.input_blob  = next(iter(self.network.inputs))
         self.output_blob = next(iter(self.network.outputs))
         
     def get_input_shape(self):
         return self.network.inputs[self.input_blob].shape
-
-    def get_output_shape(self):
-        return self.network.outputs[self.output_blob].shape
     
     def preprocess_input(self, image):
         input_shape = self.get_input_shape()
@@ -43,32 +44,34 @@ class Head_Pose_Estimation:
         return image
 
     def check_model(self):
-        raise NotImplementedError
+        sl = self.plugin.query_network(network=self.network, device_name=self.device)
+        ul = [l for l in self.network.layers.keys() if l not in sl]
+        if len(ul) != 0:
+            print("Unsupported layers found: {}".format(ul))
+            print("Check whether extensions are available to add to IECore.")
+            exit(1)
 
-    
-    def inference(self, image):
-        #self.exec_network.start_async(request_id=0,inputs={self.input_blob:image.astype(np.float32)})
-        self.exec_network.infer(inputs={self.input_blob:image.astype(np.float32)})
-        return
-        
-    
-    def wait(self):
-        status = self.exec_network.requests[0].wait(-1)
-        return status
-    
-    def predict(self, image):
+    def predict(self, image,inference_type):
         image_HPE = self.preprocess_input(image)
-        self.inference(image_HPE)
-        result = self.exec_network.infer(inputs={self.input_blob:image_HPE.astype(np.float32)})
+        
+        if(inference_type=="async"):
+
+            self.exec_network.start_async(request_id=0,inputs={self.input_blob:image_HPE.astype(np.float32)})
+            status = self.exec_network.requests[0].wait(-1)
+            if status==0:
+                result = self.exec_network.requests[0].outputs
+        else:
+            result = self.exec_network.infer(inputs={self.input_blob:image_HPE.astype(np.float32)})
+        
         output = self.preprocess_output(result)
         return output
 
 
     def preprocess_output(self, result):  
-        output = {}
-        output['yaw'] = result['angle_y_fc'][0][0] 
-        output['pitch'] = result['angle_p_fc'][0][0]   
-        output['roll'] = result['angle_r_fc'][0][0]
+        output = []
+        output.append(result['angle_y_fc'][0][0]) 
+        output.append(result['angle_p_fc'][0][0])
+        output.append(result['angle_r_fc'][0][0])
         return output
         
 
