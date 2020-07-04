@@ -170,6 +170,18 @@ python3 main.py -f "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_
 
 ![Directory_Structure](./images/Tree.png)
 
+src folder contains the following files:- 
+- [face_detection.py](./src/face_detection.py):- 
+  - Performs preprocessing and inference on the input frame.  
+  - Returns the face coordinates and the face image.
+- [face_landmarks_detection.py](/src/face_landmarks_detection.py)
+  - Performs preprocessing and inference on the face image.
+  - Returns the left eye image, right eye image and eye coordinates
+- [head_pose_estimation.py](/src/head_pose_estimation.py)
+  - Performs preprocessing and inference on the face image.
+  - Returns head pose angles(yaw, pitch, roll).
+  
+
 
 ## Benchmarks
 *TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
