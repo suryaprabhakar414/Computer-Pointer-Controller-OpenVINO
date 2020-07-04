@@ -16,7 +16,7 @@ import logging
 def build_argparser():
 
     i_desc = "Specify Path to video file or enter cam for webcam"
-    f_desc = "Specify Path to (.xml and .bin) of Face Detection model."
+    f_desc = "Specify Path to folder(.xml and .bin) of Face Detection model."
     fl_desc = "Specify Path to folder(.xml and .bin) of Facial Landmark Detection model."
     hp_desc = "Specify Path to folder(.xml and .bin) of Head Pose Estimation model."
     g_desc = "Specify Path to folder(.xml and .bin) of Gaze Estimation model."
