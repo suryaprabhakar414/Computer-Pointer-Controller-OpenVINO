@@ -126,7 +126,7 @@ python <path to main.py> -f <path to face detection directory> -fl <path to land
 ```
 - VPU (NCS2)
 ```
-python <path to main.py> -f <path to face detection directory> -fl <path to landmarks regression retail directory> -hp <path to head pose estimation directory> -g <path to gaze estimation directory> -i <path to input video> -d HETERO:MYRIAD,CPU
+python <path to main.py> -f <path to face detection directory> -fl <path to landmarks regression retail directory> -hp <path to head pose estimation directory> -g <path to gaze estimation directory> -i <path to input video> -d MYRIAD 
 ```
 ## Demo
 
@@ -139,7 +139,28 @@ python3 main.py -f "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_
 
 
 ## Documentation
-*TODO:* Include any documentation that users might need to better understand your project code. For instance, this is a good place to explain the command line arguments that your project supports.
+
+### Command Line Arguments
+
+-  -h, --help    show this help message and exit
+-  -i(required): Specify Path to video file or enter cam for webcam
+-  -f(required): Specify Path to folder(.xml and .bin) of Face Detection model.
+-  -fl(required): Specify Path to folder(.xml and .bin) of Facial Landmark Detection model.
+                
+-  -hp(required): Specify Path to folder(.xml and .bin) of Head Pose Estimation model.
+                
+-  -g(required): Specify Path to folder(.xml and .bin) of Gaze Estimation model.
+                
+-  -flags(optional):  Specify the flags from fd, fld, hp, ge like --flags fd hp fld (Seperate each flag by space) for see the visualization of different model outputs of each frame, fd for Face Detection, fld for Facial Landmark Detection hp for Head Pose Estimation, ge for Gaze Estimation.
+
+-  -prob(optional): Probability threshold for model to detect the face accurately from the video frame.
+
+-  -d(optional): Specify the target device to infer on: CPU, GPU, FPGA or MYRIAD is acceptable. Sample will look for a suitable plugin for device specified (CPU by default).
+-  -l(optional): MKLDNN (CPU)-targeted custom layers. Absolute path to a shared library with the kernels impl.
+
+-  -it(optional): Inference type, sync for Synchronous or async for Asychronous
+
+
 
 ## Benchmarks
 *TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
