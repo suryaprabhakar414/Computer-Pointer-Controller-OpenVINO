@@ -78,8 +78,17 @@ git clone https://github.com/suryaprabhakar414/Computer-Pointer-Controller-OpenV
 ```
 #### Create a Virtual Environment
 
+**For Windows**
 ```
 cd Computer-Pointer-Controller-OpenVINO.git
+```
+```
+virtualenv Virtual_Env
+```
+
+**For Linux**
+```
+cd Computer-Pointer-Controller-OpenVINO
 ```
 ```
 python -m venv Virtual_Env
@@ -91,20 +100,35 @@ pip install -r requirements.txt
 ```
 
 #### Activate the Virtual Environment
+
+**For Windows**
+```
+Virtual_Env\Scripts\activate
+```
+**For Linux**
 ```
 source Virtual_Env/bin/activate
 ```
 
+## Running the Application
 
+- CPU
+```
+python <path to main.py> -f <path to face detection directory> -fl <path to landmarks regression retail directory> -hp <path to head pose estimation directory> -g <path to gaze estimation directory> -i <path to input video> -d CPU
+```
+- GPU
+```
+python <path to main.py> -f <path to face detection directory> -fl <path to landmarks regression retail directory> -hp <path to head pose estimation directory> -g <path to gaze estimation directory> -i <path to input video> -d GPU
+```
+- FPGA
+```
+python <path to main.py> -f <path to face detection directory> -fl <path to landmarks regression retail directory> -hp <path to head pose estimation directory> -g <path to gaze estimation directory> -i <path to input video> -d HETERO:FPGA,CPU
+```
+- VPU (NCS2)
+```
+python <path to main.py> -f <path to face detection directory> -fl <path to landmarks regression retail directory> -hp <path to head pose estimation directory> -g <path to gaze estimation directory> -i <path to input video> -d HETERO:MYRIAD,CPU
+```
 
-
-
-
-
-
-
-## Demo
-*TODO:* Explain how to run a basic demo of your model.
 
 ## Documentation
 *TODO:* Include any documentation that users might need to better understand your project code. For instance, this is a good place to explain the command line arguments that your project supports.
