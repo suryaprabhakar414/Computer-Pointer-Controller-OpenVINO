@@ -34,7 +34,7 @@ After successfully installing OpenVINO toolkit, we need to install the models re
 
 #### Downloading Models
 
-For Linux
+**For Linux**
 
 - face-detection-adas-binary-0001
 ```
@@ -53,7 +53,7 @@ sudo /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py -
 sudo /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name gaze-estimation-adas-0002
 ```
 
-For Windows
+**For Windows**
 
 - face-detection-adas-binary-0001
 ```
@@ -71,6 +71,30 @@ python "C:/Program Files (x86)/IntelSWTools/openvino/deployment_tools/tools/mode
 ```
 python "C:/Program Files (x86)/IntelSWTools/openvino/deployment_tools/tools/model_downloader/downloader.py" --name "gaze-estimation-adas-0002"
 ```
+#### Clone the Repository
+
+```
+git clone https://github.com/suryaprabhakar414/Computer-Pointer-Controller-OpenVINO.git
+```
+#### Create a Virtual Environment
+
+```
+cd Computer-Pointer-Controller-OpenVINO.git
+```
+```
+python -m venv Virtual_Env
+```
+
+#### Install the requirements
+```
+pip install -r requirements.txt
+```
+
+#### Activate the Virtual Environment
+```
+source Virtual_Env/bin/activate
+```
+
 
 
 
