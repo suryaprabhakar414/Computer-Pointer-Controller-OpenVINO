@@ -32,6 +32,12 @@ After successfully installing OpenVINO toolkit, we need to install the models re
 - [Head Pose Estimation Model](https://docs.openvinotoolkit.org/latest/_models_intel_head_pose_estimation_adas_0001_description_head_pose_estimation_adas_0001.html)
 - [Gaze Estimation](https://docs.openvinotoolkit.org/latest/_models_intel_gaze_estimation_adas_0002_description_gaze_estimation_adas_0002.html)
 
+#### Pipeline
+
+You will have to coordinate the flow of data from the input, and then amongst the different models and finally to the mouse controller. The flow of data will look like this:
+
+![Pipeline](./images/pipeline.png)
+
 #### Downloading Models
 
 **For Linux**
@@ -162,7 +168,7 @@ python3 main.py -f "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_
 
 ### Directory Structure
 
-![Directory_Structure](./images/tree.png)
+![Directory_Structure](./images/Tree.png)
 
 
 ## Benchmarks
