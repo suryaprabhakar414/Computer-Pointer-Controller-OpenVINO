@@ -133,7 +133,7 @@ python <path to main.py> -f <path to face detection directory> -fl <path to land
 ```
 python3 main.py -f "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_downloader/intel/face-detection-adas-binary-0001/FP32-INT1/" -fl "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_downloader/intel/landmarks-regression-retail-0009/FP32/" -hp "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_downloader/intel/head-pose-estimation-adas-0001/FP32/" -g "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_downloader/intel/gaze-estimation-adas-0002/FP32/" -i  "/home/vegeta/Documents/Python/Project/bin/demo.mp4" -d CPU -flags "fd fld hp ge"
 ```
-![computer-pointer-controller](./images/Visualization.png)
+![Visualization](./images/Visualization.png)
 
 
 
@@ -160,6 +160,9 @@ python3 main.py -f "/opt/intel/openvino_2020.2.120/deployment_tools/tools/model_
 
 -  -it(optional): Inference type, sync for Synchronous or async for Asychronous
 
+### Directory Structure
+
+![Directory_Structure](./images/tree.png)
 
 
 ## Benchmarks
