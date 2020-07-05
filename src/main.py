@@ -111,6 +111,7 @@ def main():
             cv2.imshow('frame',cv2.resize(frame,(500,500)))
         
         key=cv2.waitKey(60)
+
         count = count+1
 
         start_time_1 = time.time()
@@ -159,11 +160,14 @@ def main():
                              (int(eye_coordinates['left_eye'][0] + arrow_X), int(eye_coordinates['left_eye'][1] + arrow_Y)),(255,0,0),2)
                 cv2.arrowedLine(frame_visualize,(eye_coordinates['right_eye'][0],eye_coordinates['right_eye'][1]),
                              (int(eye_coordinates['right_eye'][0] + arrow_X), int(eye_coordinates['right_eye'][1] + arrow_Y)),(255,0,0),2)
-                  
-            cv2.imshow('Visualization',cv2.resize(frame_visualize,(500,500)))
+            if(count%5==0):
+               
+                cv2.imshow('Visualization',cv2.resize(frame_visualize,(500,500)))
+            
         
         if(count%5==0):
             MC.move(mouse_coordinates[0],mouse_coordinates[1])
+        
         
         if key==27:
             break
@@ -178,13 +182,14 @@ def main():
         logging.info("############## End #########################") 
     
     logging.info("############## Summarized Results ##########")
-    logging.info("Total Model Load_ ime: {:.3f}ms".format(Total_Model_Load_Time))
-    logging.info("Total Inference Time: {:.3f}ms".format(Total_Inference_Time))
-    logging.info("FPS:{}".format(int(count/Total_Inference_Time)))
+    logging.info("Total Model Load Time: {:.3f}ms".format(Total_Model_Load_Time))
+    logging.info("Total Inference Time: {:.3f}s".format(Total_Inference_Time))
+    logging.info("FPS:{}".format(count/Total_Inference_Time))
     logging.info("############ End ###########################") 
     cv2.destroyAllWindows()
     IF.close()  
     
 
 if __name__ == '__main__':
+    
     main()
