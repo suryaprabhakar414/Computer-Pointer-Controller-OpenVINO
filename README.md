@@ -211,7 +211,7 @@ src folder contains the following files:-
 
 - Total Model Load Time: 790.420ms
 - Total Inference Time: 28.839s 
-- FPS:2
+- FPS:2.2183605509514606 
 
 #### FP16
 
@@ -224,7 +224,7 @@ src folder contains the following files:-
 
 - Total Model Load Time: 1290.419ms
 - Total Inference Time: 27.472s
-- FPS:2
+- FPS:2.3244733164082003
 
 #### FP16-INT8
 
@@ -237,7 +237,7 @@ src folder contains the following files:-
 
 - Total Model Load Time: 843.230ms
 - Total Inference Time: 26.750s
-- FPS:2
+- FPS:2.331284085631999
 
 ### Asynchronous Inference
 
@@ -251,7 +251,7 @@ src folder contains the following files:-
 
 - Total Model Load Time: 746.801ms
 - Total Inference Time: 25.853s
-- FPS:2
+- FPS:2.428872194112504
 
 
 #### FP16
@@ -265,7 +265,7 @@ src folder contains the following files:-
 
 - Total Model Load Time: 1187.753ms
 - Total Inference Time: 24.190s
-- FPS:2
+- FPS:2.4572291786726423
 
 #### FP16-INT8
 
@@ -278,7 +278,7 @@ src folder contains the following files:-
 
 - Total Model Load Time: 606.968ms
 - Total Inference Time: 23.867s
-- FPS:2
+- FPS:2.5548579128862854
 
 
 ## Results
