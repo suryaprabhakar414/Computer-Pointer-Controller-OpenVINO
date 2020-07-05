@@ -83,7 +83,9 @@ python "C:/Program Files (x86)/IntelSWTools/openvino/deployment_tools/tools/mode
 git clone https://github.com/suryaprabhakar414/Computer-Pointer-Controller-OpenVINO
 ```
 #### Install the requirements
-
+```
+cd Computer-Pointer-Controller-OpenVINO
+```
 ```
 pip install -r requirements.txt
 ```
@@ -91,17 +93,13 @@ pip install -r requirements.txt
 #### Create a Virtual Environment
 
 **For Windows**
-```
-cd Computer-Pointer-Controller-OpenVINO
-```
+
 ```
 virtualenv Virtual_Env
 ```
 
 **For Linux**
-```
-cd Computer-Pointer-Controller-OpenVINO
-```
+
 ```
 python -m venv Virtual_Env
 ```
