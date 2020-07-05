@@ -86,7 +86,7 @@ git clone https://github.com/suryaprabhakar414/Computer-Pointer-Controller-OpenV
 
 **For Windows**
 ```
-cd Computer-Pointer-Controller-OpenVINO.git
+cd Computer-Pointer-Controller-OpenVINO
 ```
 ```
 virtualenv Virtual_Env
