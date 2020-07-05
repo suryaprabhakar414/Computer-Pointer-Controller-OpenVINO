@@ -51,7 +51,7 @@ class Facial_Landmarks_Detection:
             print("Unsupported layers found: {}".format(ul))
             print("Check whether extensions are available to add to IECore.")
             exit(1)
-            
+
     def predict(self, image, inference_type):
         image_FLD = self.preprocess_input(image)
 
