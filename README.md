@@ -210,7 +210,9 @@ src folder contains the following files:-
 | gaze-estimation-adas-0002 |FP32| 139.832ms | 4.696ms |
 
 Total Model Load Time: 790.420ms
+
 Total Inference Time: 28.839s 
+
 FPS:2
 
 
@@ -226,7 +228,9 @@ FPS:2
 
 
 Total Model Load Time: 843.230ms
+
 Total Inference Time: 26.750s
+
 FPS:2
 
 #### FP16
@@ -239,7 +243,9 @@ FPS:2
 | gaze-estimation-adas-0002 |FP16| 495.434ms| 3.333ms |
 
 Total Model Load Time: 1290.419ms
+
 Total Inference Time: 27.472s
+
 FPS:2
 
 ### Asynchronous Inference
@@ -253,36 +259,41 @@ FPS:2
 | gaze-estimation-adas-0002 |FP32| 212.321ms | 2.941ms|
 
 Total Model Load Time: 746.801ms
-Total Inference Time: 25.853s 
+
+Total Inference Time: 25.853s
+
 FPS:2
 
 
 #### FP16-INT8
 
-
 | Model | Type | Load Time | Inference Time |
 |------|---|---| --- |
-| face-detection-adas-binary-0001 |FP32-INT1| 300.426ms | 33.491ms|
-| landmarks-regression-retail-0009 |FP16-INT8|132.802ms |  1.700ms| 
-| head-pose-estimation-adas-0001 |FP16-INT8 |177.418ms| 3.450ms |
-| gaze-estimation-adas-0002 |FP16-INT8| 231.592ms |4.364ms|
+| face-detection-adas-binary-0001 |FP32-INT1| 192.765ms | 18.180ms|
+| landmarks-regression-retail-0009 |FP16-INT8|152.837ms|  1.215ms| 
+| head-pose-estimation-adas-0001 |FP16-INT8 |379.143ms| 1.624ms |
+| gaze-estimation-adas-0002 |FP16-INT8| 461.904ms |1.854ms|
 
 
-Total Model Load Time: 843.230ms
-Total Inference Time: 26.750s
+Total Model Load Time: 1187.753ms
+
+Total Inference Time: 24.190s
+
 FPS:2
 
 #### FP16
 
 | Model | Type | Load Time | Inference Time |
 |------|---|---| --- |
-| face-detection-adas-binary-0001 |FP32-INT1|202.636ms | 30.853ms|
-| landmarks-regression-retail-0009 |FP16|182.331ms | 1.618ms| 
-| head-pose-estimation-adas-0001 |FP16 |409.070ms | 2.689ms |
-| gaze-estimation-adas-0002 |FP16| 495.434ms| 3.333ms |
+| face-detection-adas-binary-0001 |FP32-INT1|210.464ms| 16.713ms|
+| landmarks-regression-retail-0009 |FP16|114.007ms | 0.842ms| 
+| head-pose-estimation-adas-0001 |FP16 |122.805ms | 1.939ms |
+| gaze-estimation-adas-0002 |FP16| 158.406ms| 2.497ms |
 
-Total Model Load Time: 1290.419ms
-Total Inference Time: 27.472s
+Total Model Load Time: 606.968ms
+
+Total Inference Time: 23.867s
+
 FPS:2
 
 
