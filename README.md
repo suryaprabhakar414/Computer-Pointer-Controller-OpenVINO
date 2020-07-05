@@ -80,7 +80,7 @@ python "C:/Program Files (x86)/IntelSWTools/openvino/deployment_tools/tools/mode
 #### Clone the Repository
 
 ```
-git clone https://github.com/suryaprabhakar414/Computer-Pointer-Controller-OpenVINO.git
+git clone https://github.com/suryaprabhakar414/Computer-Pointer-Controller-OpenVINO
 ```
 #### Create a Virtual Environment
 
