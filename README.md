@@ -196,6 +196,8 @@ src folder contains the following files:-
 
 ## Benchmarks
 
+My laptop has **Intel(R) Core(TM) i5-9300H CPU @ 2.40GHz 2.40 GHz** processor
+
 ### Synchronous Inference
 
 #### FP32
