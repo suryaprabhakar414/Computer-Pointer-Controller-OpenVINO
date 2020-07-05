@@ -209,29 +209,9 @@ src folder contains the following files:-
 | head-pose-estimation-adas-0001 |FP32 |233.368ms | 3.510ms |
 | gaze-estimation-adas-0002 |FP32| 139.832ms | 4.696ms |
 
-Total Model Load Time: 790.420ms
-
-Total Inference Time: 28.839s 
-
-FPS:2
-
-
-#### FP16-INT8
-
-
-| Model | Type | Load Time | Inference Time |
-|------|---|---| --- |
-| face-detection-adas-binary-0001 |FP32-INT1| 300.426ms | 33.491ms|
-| landmarks-regression-retail-0009 |FP16-INT8|132.802ms |  1.700ms| 
-| head-pose-estimation-adas-0001 |FP16-INT8 |177.418ms| 3.450ms |
-| gaze-estimation-adas-0002 |FP16-INT8| 231.592ms |4.364ms|
-
-
-Total Model Load Time: 843.230ms
-
-Total Inference Time: 26.750s
-
-FPS:2
+- Total Model Load Time: 790.420ms
+- Total Inference Time: 28.839s 
+- FPS:2
 
 #### FP16
 
@@ -242,11 +222,22 @@ FPS:2
 | head-pose-estimation-adas-0001 |FP16 |409.070ms | 2.689ms |
 | gaze-estimation-adas-0002 |FP16| 495.434ms| 3.333ms |
 
-Total Model Load Time: 1290.419ms
+- Total Model Load Time: 1290.419ms
+- Total Inference Time: 27.472s
+- FPS:2
 
-Total Inference Time: 27.472s
+#### FP16-INT8
 
-FPS:2
+| Model | Type | Load Time | Inference Time |
+|------|---|---| --- |
+| face-detection-adas-binary-0001 |FP32-INT1| 300.426ms | 33.491ms|
+| landmarks-regression-retail-0009 |FP16-INT8|132.802ms |  1.700ms| 
+| head-pose-estimation-adas-0001 |FP16-INT8 |177.418ms| 3.450ms |
+| gaze-estimation-adas-0002 |FP16-INT8| 231.592ms |4.364ms|
+
+- Total Model Load Time: 843.230ms
+- Total Inference Time: 26.750s
+- FPS:2
 
 ### Asynchronous Inference
 
@@ -258,14 +249,12 @@ FPS:2
 | head-pose-estimation-adas-0001 |FP32 |201.458ms | 2.716ms |
 | gaze-estimation-adas-0002 |FP32| 212.321ms | 2.941ms|
 
-Total Model Load Time: 746.801ms
-
-Total Inference Time: 25.853s
-
-FPS:2
+- Total Model Load Time: 746.801ms
+- Total Inference Time: 25.853s
+- FPS:2
 
 
-#### FP16-INT8
+#### FP16
 
 | Model | Type | Load Time | Inference Time |
 |------|---|---| --- |
@@ -274,14 +263,11 @@ FPS:2
 | head-pose-estimation-adas-0001 |FP16-INT8 |379.143ms| 1.624ms |
 | gaze-estimation-adas-0002 |FP16-INT8| 461.904ms |1.854ms|
 
+- Total Model Load Time: 1187.753ms
+- Total Inference Time: 24.190s
+- FPS:2
 
-Total Model Load Time: 1187.753ms
-
-Total Inference Time: 24.190s
-
-FPS:2
-
-#### FP16
+#### FP16-INT8
 
 | Model | Type | Load Time | Inference Time |
 |------|---|---| --- |
@@ -290,24 +276,38 @@ FPS:2
 | head-pose-estimation-adas-0001 |FP16 |122.805ms | 1.939ms |
 | gaze-estimation-adas-0002 |FP16| 158.406ms| 2.497ms |
 
-Total Model Load Time: 606.968ms
-
-Total Inference Time: 23.867s
-
-FPS:2
-
-
-
+- Total Model Load Time: 606.968ms
+- Total Inference Time: 23.867s
+- FPS:2
 
 
 ## Results
-*TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
+
+- For face-detection-adas-binary-0001 model only FP32-INT1 was available. 
+- For landmarks-regression-retail-0009, head-pose-estimation-adas-0001 and head-pose-estimation-adas-0001  FP32, FP16-INT8 and FP16 was available.
+- Lowering the model precision from FP32 to FP16 or FP16-INT8 reduced the inference inference time, because low precision will occupy less space and requires less computation power, hence it is faster.  
+- Lowering model precision affects the accuracy of the model, because as we reduce the model precision we lose some important information which causes reduction in accuracy.
+- It can be observed clearly from the above tables, the inference time of FP32 is greater than that of FP16 and FP16-INT8, because as we increase the model precision the model becomes more complex and requires more computation power, hence resulting in an increase in inference time.
+ 
 
 ## Stand Out Suggestions
-This is where you can provide information about the stand out suggestions that you have attempted.
+
+### Video and Webcam feed
+
+- The user can upload a video file or can use the webcam by specifying the option in the command line arguments. 
+- For using the webcam the user has to specify "cam" in the command line arguments. 
+- For using a video file the user has to specify the path to video file in the command line arguments.
 
 ### Async Inference
-If you have used Async Inference in your code, benchmark the results and explain its effects on power and performance of your project.
+- I have used Asynchronous Inference in this project.
+- The user can specify the type of inference ("sync" or "async") in the command line arguments.
+- As we can observe from the above tables, the inference time for all models in each precision is reduced while running in asynchronous mode, because in asynchronous mode if the respose for a particular request takes a long time, then the system doesn't hold up, rather it continues with the next process while the current process is executing.
+- We use the "wait" process to wait for the inference result to be available.
+- Asynchronous does not block the main thread like synchronous.So, we could have a frame sent for inference, while still gathering and pre-processing the next frame.
 
 ### Edge Cases
-There will be certain situations that will break your inference flow. For instance, lighting changes or multiple people in the frame. Explain some of the edge cases you encountered in your project and how you solved them to make your project more robust.
+
+- In case of multiple faces, the model takes the first detected face to control the mouse pointer, hence ignoring all ther other faces. 
+- Lighting changes are important, because the model cannot detect the gaze properly if proper lighting is not present
+
+
