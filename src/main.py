@@ -62,7 +62,7 @@ def main():
     fld_inference_time = 0
     hp_inference_time = 0
     ge_inference_time = 0
-    00
+ 
     MC = MouseController('medium','fast')
     
     logging.info("############## Model Load Time #############")
