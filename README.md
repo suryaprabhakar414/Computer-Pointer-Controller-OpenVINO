@@ -174,17 +174,120 @@ src folder contains the following files:-
 - [face_detection.py](./src/face_detection.py):- 
   - Performs preprocessing and inference on the input frame.  
   - Returns the face coordinates and the face image.
-- [face_landmarks_detection.py](/src/face_landmarks_detection.py)
+- [face_landmarks_detection.py](./src/face_landmarks_detection.py)
   - Performs preprocessing and inference on the face image.
-  - Returns the left eye image, right eye image and eye coordinates
-- [head_pose_estimation.py](/src/head_pose_estimation.py)
+  - Returns the left eye image, right eye image and eye coordinates.
+- [gaze_estimation.py](./src/gaze_estimation.py)
+  - Takes the left eye image, right eye image, head pose angles as input.
+  - Performs preprocessing ans inference.
+  - Returns the mouse coordinates and gaze vector.
+- [head_pose_estimation.py](./src/head_pose_estimation.py)
   - Performs preprocessing and inference on the face image.
   - Returns head pose angles(yaw, pitch, roll).
+- [input_feeder.py](.src/input_feeder.py)
+  - Contains InputFeeder class which initialize VideoCapture as per the user argument.
+  - Returns the frames one by one.
+- [main.py](./src/main.py)
+  - Contains the main script to run the application.
+- [mouse_controller.py](.src/mouse_controller.py)
+  - Contains MouseController class which take x, y coordinates value, speed, precisions and according these values it moves the mouse pointer by using pyautogui library.
+  
   
 
 
 ## Benchmarks
-*TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
+
+### Synchronous Inference
+
+#### FP32
+
+
+| Model | Type | Load Time | Inference Time |
+|------|---|---| --- |
+| face-detection-adas-binary-0001 |FP32-INT1| 280.731ms | 34.636ms|
+| landmarks-regression-retail-0009 |FP32|135.403ms |  1.722ms| 
+| head-pose-estimation-adas-0001 |FP32 |233.368ms | 3.510ms |
+| gaze-estimation-adas-0002 |FP32| 139.832ms | 4.696ms |
+
+Total Model Load Time: 790.420ms
+Total Inference Time: 28.839s 
+FPS:2
+
+
+#### FP16-INT8
+
+
+| Model | Type | Load Time | Inference Time |
+|------|---|---| --- |
+| face-detection-adas-binary-0001 |FP32-INT1| 300.426ms | 33.491ms|
+| landmarks-regression-retail-0009 |FP16-INT8|132.802ms |  1.700ms| 
+| head-pose-estimation-adas-0001 |FP16-INT8 |177.418ms| 3.450ms |
+| gaze-estimation-adas-0002 |FP16-INT8| 231.592ms |4.364ms|
+
+
+Total Model Load Time: 843.230ms
+Total Inference Time: 26.750s
+FPS:2
+
+#### FP16
+
+| Model | Type | Load Time | Inference Time |
+|------|---|---| --- |
+| face-detection-adas-binary-0001 |FP32-INT1|202.636ms | 30.853ms|
+| landmarks-regression-retail-0009 |FP16|182.331ms | 1.618ms| 
+| head-pose-estimation-adas-0001 |FP16 |409.070ms | 2.689ms |
+| gaze-estimation-adas-0002 |FP16| 495.434ms| 3.333ms |
+
+Total Model Load Time: 1290.419ms
+Total Inference Time: 27.472s
+FPS:2
+
+### Asynchronous Inference
+
+#### FP32
+| Model | Type | Load Time | Inference Time |
+|------|---|---| --- |
+| face-detection-adas-binary-0001 |FP32-INT1|216.242ms | 20.996ms|
+| landmarks-regression-retail-0009 |FP32|114.711ms|  0.946ms| 
+| head-pose-estimation-adas-0001 |FP32 |201.458ms | 2.716ms |
+| gaze-estimation-adas-0002 |FP32| 212.321ms | 2.941ms|
+
+Total Model Load Time: 746.801ms
+Total Inference Time: 25.853s 
+FPS:2
+
+
+#### FP16-INT8
+
+
+| Model | Type | Load Time | Inference Time |
+|------|---|---| --- |
+| face-detection-adas-binary-0001 |FP32-INT1| 300.426ms | 33.491ms|
+| landmarks-regression-retail-0009 |FP16-INT8|132.802ms |  1.700ms| 
+| head-pose-estimation-adas-0001 |FP16-INT8 |177.418ms| 3.450ms |
+| gaze-estimation-adas-0002 |FP16-INT8| 231.592ms |4.364ms|
+
+
+Total Model Load Time: 843.230ms
+Total Inference Time: 26.750s
+FPS:2
+
+#### FP16
+
+| Model | Type | Load Time | Inference Time |
+|------|---|---| --- |
+| face-detection-adas-binary-0001 |FP32-INT1|202.636ms | 30.853ms|
+| landmarks-regression-retail-0009 |FP16|182.331ms | 1.618ms| 
+| head-pose-estimation-adas-0001 |FP16 |409.070ms | 2.689ms |
+| gaze-estimation-adas-0002 |FP16| 495.434ms| 3.333ms |
+
+Total Model Load Time: 1290.419ms
+Total Inference Time: 27.472s
+FPS:2
+
+
+
+
 
 ## Results
 *TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
